@@ -5,7 +5,7 @@ const galleryConteiner = document.querySelector(".gallery");
 
 const galleryMarkup = createImagesGalleryMarkup(galleryItems);
 
-galleryConteiner.addEventListener("click", aoClickImageGallery);
+galleryConteiner.addEventListener("click", makeClickImageGallery);
 
 galleryConteiner.insertAdjacentHTML("beforeend", galleryMarkup);
 
@@ -25,20 +25,16 @@ function createImagesGalleryMarkup(galleryItems) {
     .join("");
 }
 
-function aoClickImageGallery(e) {
+function makeClickImageGallery(e) {
   if (e.target.nodeName !== "IMG") {
     return;
   }
   e.preventDefault();
   console.log(e.target.dataset.source);
-}
 
-document.querySelector("button.image").onclick = () => {
-  basicLightbox
-    .create(
-      `
-		<img width="1400" height="900" src="https://placehold.it/1400x900">
-	`
-    )
-    .show();
-};
+  const instance = basicLightbox.create(`
+    <img src="${e.target.dataset.source}">
+`);
+
+  console.log(instance.show());
+}
